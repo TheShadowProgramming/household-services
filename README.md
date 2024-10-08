@@ -16,3 +16,6 @@
 > customers will can scroll for services and also request for some specific services which is not present in the database yet
 
 ![image](https://github.com/user-attachments/assets/c6db123a-b06e-4cb9-ae2d-36ac1de0f71a)
+
+- the root folder must have a code folder and it must have a projectDescription.pdf 
+- we'll need a video too explananing the entire video about the working of the application
