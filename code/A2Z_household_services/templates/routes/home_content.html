@@ -1,0 +1,16 @@
+{% extends './base_with_navbar.html' %}
+
+{% block content_main %}
+    {% if current_user.category == "Admin" %}
+        {% from './macros/home_admin.html' import render_home_admin %}
+        {{ render_home_admin(services_types) }}
+    {% elif current_user.category == "Professional" %}
+        
+    {% elif current_user.category == "Customer" %}
+
+    {% else %}
+        {% from './macros/home_unregistered.html' import render_home_unregistered %}
+        {{ render_home_unregistered() }}
+    {% endif %}
+    
+{% endblock content_main %}
