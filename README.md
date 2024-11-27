@@ -1,3 +1,5 @@
+> Important Note :- I'll start working on the project when I'll be done with working on my practice blog project having same tech stack, link of the project :- https://github.com/TheShadowProgramming/iitm-courses-practice/tree/main/programming-diploma/MAD1-project/MAD1_practice_proj_corey_schafer
+
 # household-services application introduction
 
 ### frameworks used :- 
