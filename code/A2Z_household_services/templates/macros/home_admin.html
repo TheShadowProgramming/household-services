@@ -1,8 +1,8 @@
-{% macro render_home_admin(services_type_table, professionals) %}
-    <h1 class="text-center text-primary lato-black">Service Types</h1>
+{% macro render_home_admin(services_type_table, professionals, current_user) %}
+    <h1 class="text-center text-primary lato-black">Service     Types</h1>
     <div class="container lato-regular border border-5 border-primary text-center">
         <div class="row">
-            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Id</div>
+            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">DB Id</div>
             <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Service Name</div>
             <div style="font-size: 1.25rem;" class="col-4 text-white lato-bold bg-primary">Description</div>
             <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Base Price</div>
@@ -15,31 +15,31 @@
                 <div class="col-4 d-flex align-items-center justify-content-center">{{ tuple.description }}</div>
                 <div class="col-2 d-flex align-items-center justify-content-center">{{ tuple.base_price }}</div>
                 <div class="col-2 d-flex align-items-center justify-content-center">
-                    <span><a href="#" class="text-black">Edit</a></span>/<span><a href="" class="text-black">Delete</a></span>
+                    <span><a href="{{ url_for('edit', serviceId=tuple.id) }}" class="text-black">Edit</a></span>/<span><a href="{{ url_for('delete_service', serviceId=tuple.id) }}" class="text-black">Delete</a></span>
                 </div>
             </div>            
         {% endfor %}
     </div>
 
     <h1 class="mt-5 text-center text-primary lato-black">Recent Professional Requests</h1>
-    <div class="container lato-regular border border-5 border-primary text-center">
+    <div class="container lato-regular border border-5 border-primary text-center mb-5">
         <div class="row bg-primary">
-            <div style="font-size: 1.25rem;" class="col-1 text-white lato-bold">Id</div>
+            <div style="font-size: 1.25rem;" class="col-1 text-white lato-bold">DB Id</div>
             <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold">Name</div>
             <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold">Service Name</div>
             <div style="font-size: 1.25rem;" class="col-3 text-white lato-bold">Experience (in yrs)</div>
             <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold">documents</div>
             <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold">Action</div>
         </div>
-        {% for tuple in services_type_table %}
+        {% for tuple in professionals %}
             <div style="border-bottom: 0.5px solid;" class="row border-secondary">
                 <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-1 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ tuple.id }}</div>
                 <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ tuple.name }}</div>
-                <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ tuple.name }}</div>
-                <div class="col-3 d-flex align-items-center justify-content-center">{{ tuple.description }}</div>
-                <div class="col-2 col-2 d-flex align-items-center justify-content-center">{{ tuple.base_price }}</div>
+                <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ tuple.service_offered }}</div>
+                <div class="col-3 d-flex align-items-center justify-content-center">{{ tuple.experience }}</div>
+                <div class="col-2 col-2 d-flex align-items-center justify-content-center"><a href="{{ url_for('static', filename='professional_docs/'+ tuple.description)}}">{{ tuple.description }}</a></div>
                 <div class="col-2 d-flex align-items-center justify-content-center">
-                    <span><a href="#" class="text-black">Approve</a></span>/<span><a href="" class="text-black">Reject</a></span>
+                    <span><a href="{{ url_for('approve', professionalEmail=tuple.email) }}" class="text-black">Approve</a></span>
                 </div>
             </div>            
         {% endfor %}

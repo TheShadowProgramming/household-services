@@ -3,7 +3,7 @@
 {% block content_main %}
     {% if current_user.category == "Admin" %}
         {% from './macros/home_admin.html' import render_home_admin %}
-        {{ render_home_admin(services_types) }}
+        {{ render_home_admin(services_types, professionals) }}
     {% elif current_user.category == "Professional" %}
         
     {% elif current_user.category == "Customer" %}

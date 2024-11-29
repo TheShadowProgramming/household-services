@@ -16,12 +16,12 @@
                     
                     {% if form.service_name.errors %} 
                     
-                        {{form.service_name(class="form-control text-dark form-control-lg is-invalid border border-primary border-2")}} 
+                        {{form.service_name(class="form-control text-dark form-control-lg is-invalid border border-primary border-2", placeholder="Enter Name of Service in '%_%' format")}} 
                     
                     {% else %}
 
                         {{ form.service_name(class="form-control text-dark
-                        form-control-lg border border-primary border-2") }} 
+                        form-control-lg border border-primary border-2", placeholder="Enter Name of Service in '%_%' format") }} 
                     
                     {% endif %} 
 

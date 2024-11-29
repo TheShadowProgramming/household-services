@@ -1,5 +1,5 @@
 from datetime import datetime, timezone;  # type: ignore
-from sqlalchemy.orm import Mapped, mapped_column # type: ignore
+from sqlalchemy.orm import Mapped, mapped_column, relationship # type: ignore
 from A2Z_household_services import db;
 from flask_login import UserMixin; # type: ignore
 
@@ -41,3 +41,37 @@ class ServiceTypes(db.Model):
     description: Mapped[str] = mapped_column(db.Text, nullable=False)
 
     base_price: Mapped[int] = mapped_column(nullable=False)
+
+class Service_requests_central(db.Model):
+
+    service_id: Mapped['int'] = mapped_column(primary_key=True); # auto-generated
+    
+    service_category: Mapped['str'] = mapped_column(db.String(30),nullable=False); # will be decided by the professional at the time of making their professional portfolio
+
+    service_price: Mapped['int'] = mapped_column(nullable=False); # will be decided by the professional at the time of making their professional portfolio
+
+    service_status: Mapped['str'] = mapped_column(db.String(20), nullable=False); # both customers and professionals can change this
+
+    customer_id: Mapped['int'] = mapped_column(db.ForeignKey('service_requests_customer.customer_id'), nullable=False);
+    # single customer asking for single service
+
+    professional_id: Mapped['int'] = mapped_column(db.ForeignKey('service_requests_professional.professional_id'), nullable=False);
+    # single professional a single service to a single customer
+
+    customer_pincode: Mapped['int'] = mapped_column(nullable=False);
+
+    professional_pincode: Mapped['int'] = mapped_column(nullable=False);
+
+    service_review: Mapped['str'] = mapped_column(db.Text, nullable=False);
+    # will be added by the customer at the time of closing the service
+
+class Service_requests_customer(db.Model):
+    customer_id: Mapped['int'] = mapped_column(primary_key=True);
+
+    services_requested: Mapped[list['Service_requests_central']] = relationship(lazy=True);
+
+class Service_requests_professional(db.Model):
+
+    professional_id: Mapped['int'] = mapped_column(primary_key=True);
+
+    services_served: Mapped[list['Service_requests_central']] = relationship(lazy=True);
