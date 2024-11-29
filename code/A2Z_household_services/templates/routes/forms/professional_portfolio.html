@@ -1,0 +1,59 @@
+{% extends './base_with_navbar.html' %}
+
+{% block content_main %}
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center mb-4">
+            <div class="col d-flex justify-content-center align-items-center">
+                <img style="width: 12rem; height: 12rem;" src="{{ url_for('static', filename='assets/'+current_user.service_offered+'.png') }}" alt="">
+            </div>
+        </div>
+        <form action="" method="POST" target="_self" autocomplete="off" class="row">
+            {{ form.hidden_tag() }}
+            <fieldset class="container">
+                <div class="row text-center mb-2 d-flex justify-content-center align-items-center">
+                    <legend class="lato-bold">
+                        Edit Your Portfolio 🚀
+                    </legend>
+                </div>
+                <div class="row mb-3 d-flex justify-content-center">
+
+                    {{ form.service_portfolio.label(class="ms-auto form-label text-dark lato-regular text-center", style="font-size: 1.25rem;") }}
+                    {% if form.service_portfolio.errors %}
+                        {{ form.service_portfolio(class="form-control text-dark is-invalid lato-regular", style="width: 6rem !important; height: 6rem !important;")}}
+                    {% else %}
+                        {{ form.service_portfolio(class="form-control text-dark border border-primary border-2 lato-regular", style="width: 36rem !important; height: 5rem !important;") }}
+                    {% endif %}
+        
+                    {% for error in form.service_portfolio.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+        
+                </div>
+                <div class="row mb-3">
+                    <label style="font-size: 1.25rem;" for="disabledInputInteger" class="form-label text-dark lato-regular text-center">Base Price</label>
+                    <div class="text-primary text-center"> {{ base_price }} </div>
+                </div>
+                <div class="row mb-3 d-flex justify-content-center">
+
+                    <div class="text-center">
+                        {{ form.service_category_change.label(class="ms-auto form-label text-dark lato-regular text-center", style="font-size: 1.25rem;") }}
+                        <span style="font-size: 1.25rem;" class="text-dark lato-regular text-center">, Current Service :- {{ current_user.service_offered }}</span>    
+                    </div>
+                    {% if form.service_category_change.errors %}
+                        {{ form.service_category_change(class="form-control text-dark is-invalid lato-regular",style="width: 36rem !important;")}}
+                    {% else %}
+                        {{ form.service_category_change(class="form-control text-dark border border-primary border-2 lato-regular", style="width: 36rem !important;") }}
+                    {% endif %}
+        
+                    {% for error in form.service_category_change.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+        
+                </div>
+            </fieldset>
+            <div class="mb-3 d-flex justify-content-center">
+                {{ form.submitButton(class="landing-page-button btn") }}
+            </div>
+        </form>
+    </div>
+{% endblock content_main %}

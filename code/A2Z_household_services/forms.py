@@ -120,17 +120,27 @@ class DatabaseSearchForm(FlaskForm):
 
     submitButton = SubmitField('Search');
 
-class ProfessionalPortfolio(FlaskForm):
+class ProfessionalPortfolioForm(FlaskForm):
 
-    service_portfolio = StringField('Enter A Good Description About Your Work And Experience', validators=[DataRequired()]);
+    with app.app_context():
 
-    service_price = IntegerField("Enter A Price At Which You'll serve your service", validators=[DataRequired()])
+        service_tuples = ServiceTypes.query.all();
 
-    def validate_service_price(self, service_price):
+        options = [];
+        for service in service_tuples:
+            option = (service.name, service.name);
+            options.append(option);
 
-        service_type = ServiceTypes.query.filter_by(name=current_user.service_offered);
+    service_portfolio = TextAreaField('Enter A Good Description About Your Work And Experience And your hourly Rate', validators=[DataRequired()]);
 
-        base_price = service_type.base_price;
+    service_category_change = SelectField('Choose Service', choices=options ,validators=[DataRequired()])
 
-        if not service_price.data >= base_price:
-            raise ValidationError(f'Service Price should be greater than {base_price}');
+    submitButton = SubmitField('Update Portfolio');
+
+class CustomerProposalForm(FlaskForm):
+
+    negotiated_price = IntegerField('Enter The Hourly Price That You Can Pay For The Service', validators=[DataRequired()]);
+
+    proposal_message = TextAreaField('Enter The Proposal To Make Professional Accepts Your Request', validators=[DataRequired()]);
+
+    submitButton = SubmitField('Send Service Request');

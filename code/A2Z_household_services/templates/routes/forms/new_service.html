@@ -36,7 +36,7 @@
                     {% if form.description.errors %}
                         {{ form.description(class="form-control form-control-lg text-dark is-invalid")}}
                     {% else %}
-                        {{ form.description(class="form-control form-control-lg text-dark border border-primary border-2") }}
+                        {{ form.description(class="form-control form-control-lg text-dark border border-primary border-2", placeholder="upload the png file of this new service too so prevent errors") }}
                     {% endif %}
 
                     {% for error in form.description.errors %}

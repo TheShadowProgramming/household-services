@@ -75,3 +75,9 @@ class Service_requests_professional(db.Model):
     professional_id: Mapped['int'] = mapped_column(primary_key=True);
 
     services_served: Mapped[list['Service_requests_central']] = relationship(lazy=True);
+
+class Professional_portfolio(db.Model):
+
+    professional_id: Mapped['int'] = mapped_column(primary_key=True);
+
+    professional_portfolio: Mapped['str'] = mapped_column(db.Text, nullable=False);

@@ -1,0 +1,27 @@
+{% extends './base_with_navbar.html' %}
+
+{% block content_main %}
+    <h1 class="text-center text-primary lato-black">Service professionals of {{ service_category.name }} service</h1>
+    <div class="container lato-regular border border-5 border-primary text-center">
+        <div class="row">
+            <div style="font-size: 1.25rem;" class="col-1 text-white lato-bold bg-primary">DB Id</div>
+            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Professional Name</div>
+            <div style="font-size: 1.25rem;" class="col-4 text-white lato-bold bg-primary">Description</div>
+            <div style="font-size: 1.25rem;" class="col-1 text-white lato-bold bg-primary">Service price</div>
+            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Pincode</div>
+            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Action</div>
+        </div>
+        {% for tuple in filtered_professionals %}
+            <div style="border-bottom: 0.5px solid;" class="row border-secondary">
+                <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-1 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ tuple.id }}</div>
+                <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ tuple.name }}</div>
+                <div class="col-4 d-flex align-items-center justify-content-center">{{ tuple.professional_portfolio }}</div>
+                <div class="col-1 d-flex align-items-center justify-content-center">{{ service_category.base_price }}</div>
+                <div class="col-2 d-flex align-items-center justify-content-center">{{ tuple.pincode }}</div>
+                <div class="col-2 d-flex align-items-center justify-content-center">
+                    <span><a href="{{ url_for('book_service', professional_id=tuple.id) }}" class="text-black landing-page-button m-1 btn">Book</a></span>
+                </div>
+            </div>            
+        {% endfor %}
+    </div>
+{% endblock content_main %}

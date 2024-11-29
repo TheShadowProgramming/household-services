@@ -2,15 +2,29 @@
 
 {% block content_main %}
     {% if current_user.category == "Admin" %}
+        
         {% from './macros/home_admin.html' import render_home_admin %}
+        
         {{ render_home_admin(services_types, professionals) }}
+
     {% elif current_user.category == "Professional" %}
         
+        {% from './macros/home_professional.html' import render_home_professional %}
+
+        {{ render_home_professional(service_requests_pending, service_requests_open) }}
+
     {% elif current_user.category == "Customer" %}
+        
+        {% from './macros/home_customer.html' import render_home_customer  %}
+        
+        {{ render_home_customer(services_types) }}
 
     {% else %}
+        
         {% from './macros/home_unregistered.html' import render_home_unregistered %}
+        
         {{ render_home_unregistered() }}
+        
     {% endif %}
     
 {% endblock content_main %}

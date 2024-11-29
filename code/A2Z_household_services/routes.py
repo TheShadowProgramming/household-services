@@ -1,11 +1,11 @@
-from flask import render_template, redirect, url_for, flash, abort;
+from flask import render_template, redirect, url_for, flash, abort, request;
 import os;
 import secrets;
 import json;
 from A2Z_household_services import app, db, flask_bcrypt_instance, login_manager;
 from flask_login import current_user, login_user, logout_user, login_required; # type: ignore
-from A2Z_household_services.forms import Signup_Customer_Form, Signup_Professional_Form, Login_Form, New_Service_Form, Edit_Service_Form, DatabaseSearchForm;
-from A2Z_household_services.models import User, ServiceTypes;
+from A2Z_household_services.forms import Signup_Customer_Form, Signup_Professional_Form, Login_Form, New_Service_Form, Edit_Service_Form, DatabaseSearchForm, ProfessionalPortfolioForm, CustomerProposalForm;
+from A2Z_household_services.models import User, ServiceTypes, Service_requests_central, Service_requests_customer, Service_requests_professional, Professional_portfolio;
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -18,7 +18,19 @@ def home():
 
     professionals = User.query.filter_by(category="Professional", user_blocked=True);
 
-    return render_template('routes/home_content.html', title='Home', current_user=current_user, services_types=services_types, professionals=professionals);
+    service_requests_open = []
+    service_requests_closed = []
+    service_requests_pending = []
+
+    if current_user.is_authenticated:
+
+        service_requests_pending = Service_requests_central.query.filter_by(professional_id=current_user.id, service_status="Pending")
+
+        service_requests_open = Service_requests_central.query.filter_by(professional_id=current_user.id, service_status="Open");
+
+        service_requests_closed = Service_requests_central.query.filter_by(professional_id=current_user.id, service_status="Closed");
+
+    return render_template('routes/home_content.html', title='Home', current_user=current_user, services_types=services_types, professionals=professionals, service_requests_pending=service_requests_pending, service_requests_open=service_requests_open, service_requests_closed=service_requests_closed);
 
 @app.route("/signup-customer", methods=['POST', 'GET'])
 def signup_customer():
@@ -111,7 +123,11 @@ def logout():
 
 @app.errorhandler(403)
 def already_signedIn_error(error):
-    return render_template('errors/403.html', error_message="Forbidden Access")
+    return render_template('errors/403.html', error_message="Forbidden Access");
+
+@app.errorhandler(404)
+def cant_book_another_service(error):
+    return render_template('errors/403.html', error_message="Forbidden Access");
 
 @app.route("/new-service", methods=['GET', 'POST'])
 @login_required
@@ -278,3 +294,178 @@ def block_user(userId, status):
 
         abort(403);
 
+@app.route('/professional-portfolio', methods=['GET', 'POST'])
+@login_required
+def professional_portfolio():
+
+    if current_user.category == "Professional":
+            
+        form = ProfessionalPortfolioForm();
+
+        if form.validate_on_submit():
+
+            professional_portfolio = Professional_portfolio.query.filter_by(professional_id=current_user.id).first();
+
+            current_user.service_offered = form.service_category_change.data;
+
+
+            if professional_portfolio:
+                
+                professional_portfolio.professional_portfolio = form.service_portfolio.data;
+
+                professional_portfolio.professional_id = current_user.id
+
+            else:
+
+                professional_portfolio = Professional_portfolio(professional_id=current_user.id, professional_portfolio=form.service_portfolio.data);
+            
+                db.session.add(professional_portfolio)
+            
+            db.session.commit();
+
+            flash('Updated Portfolio Successfully', 'success');
+            
+            return redirect(url_for('professional_portfolio'));
+                
+        elif request.method == 'GET':
+            portfolio_description = Professional_portfolio.query.filter_by(professional_id=current_user.id).first();
+
+            service_type = ServiceTypes.query.filter_by(name=current_user.service_offered).first();
+
+            base_price = service_type.base_price;
+
+            if portfolio_description:
+                
+                form.service_portfolio.data = portfolio_description.professional_portfolio;
+
+
+        return render_template('routes/forms/professional_portfolio.html', title="Professional", current_user=current_user, form=form, base_price=base_price);
+            
+        
+    else:
+            
+        abort(403);
+
+@app.route('/accept-reject-service/<serviceId>/<status>', methods=['GET', 'POST'])
+@login_required
+def accept_or_reject_service(serviceId, status):
+
+    if current_user.category == "Professional":
+        service_request = Service_requests_central.query.filter_by(service_id=serviceId).first();
+
+        service_request.service_status = status;
+    
+        db.session.commit()
+
+        return redirect(url_for('home'));
+
+    else:
+
+        abort(403);
+
+@app.route('/customer/search/<service_category>', methods=['GET', 'POST'])
+@login_required
+def customer_search(service_category):
+
+    if current_user.category == "Customer":
+
+        service_category_filter = ServiceTypes.query.filter_by(name=service_category).first();
+
+        filtered_professionals = User.query.filter_by(service_offered=service_category);
+
+        for professional in filtered_professionals:
+            professional_portfolio = Professional_portfolio.query.filter_by(professional_id=professional.id).first();
+
+            if professional_portfolio:
+                professional.professional_portfolio = professional_portfolio.professional_portfolio;
+        
+            else:
+                professional.professional_portfolio = ""
+
+        return render_template('routes/customer_search.html', title='Customer Search', service_category=service_category_filter, filtered_professionals=filtered_professionals);
+
+    else:
+
+        abort(403);
+
+@app.route('/book-service/<professional_id>', methods=['GET', 'POST'])
+@login_required
+def book_service(professional_id):
+
+    if current_user.category == "Customer":
+        
+        form = CustomerProposalForm();
+
+        professional = User.query.filter_by(id=professional_id).first();
+
+        if form.validate_on_submit():
+
+            customer_services = Service_requests_central.query.filter_by(customer_id=current_user.id);
+        
+            if customer_services:
+                for service in customer_services:
+                    if service.professional_id == professional_id and service.service_category == "Open":
+                        abort(404);
+
+            new_service_request = Service_requests_central(service_category=professional.service_offered, service_price=form.negotiated_price.data, service_status="Pending", customer_id=current_user.id, professional_id=professional.id, customer_pincode=current_user.pincode, professional_pincode=professional.pincode, service_review=form.proposal_message.data)
+
+            db.session.add(new_service_request);
+        
+            db.session.commit();
+
+            flash(f'Booked Service for {new_service_request.service_category} category', 'success')
+        
+            return redirect(url_for('home'))
+
+        return render_template('routes/forms/customer_proposal.html', title="Book Service", current_user=current_user, form=form, professional=professional);
+    else:
+        abort(403);
+
+@app.route('/customer-database', methods=['GET', 'POST'])
+@login_required
+def customer_database():
+
+    if current_user.category == "Customer":
+
+        all_services = Service_requests_central.query.all();
+
+        updated_services_all = []
+
+        updated_services_open = []
+
+        for service in all_services:
+
+            if service.customer_id == current_user.id and service.service_status == "Open":
+
+                professional = User.query.filter_by(id=service.professional_id).first();
+    
+                service.professional_name = professional.name;
+    
+                updated_services_open.append(service);
+            
+            elif service.customer_id == current_user.id:
+
+                professional = User.query.filter_by(id=service.professional_id).first();
+    
+                service.professional_name = professional.name;
+    
+                updated_services_all.append(service);
+
+        
+        return render_template('routes/customer_database.html', title="Customer Database", current_user=current_user, service_requests=updated_services_all, service_requests_open=updated_services_open)
+                               
+    else:
+
+        abort(403);
+
+@app.route('/close-service/<serviceId>', methods=['GET', 'POST'])
+@login_required
+def close_service(serviceId):
+
+        service_to_close = Service_requests_central.query.filter_by(service_id=serviceId).first();
+
+        service_to_close.service_status = "Closed";
+
+        db.session.commit();
+    
+        return redirect(url_for('customer_database'))
