@@ -1,1 +1,5 @@
 - I don't know the reason behind the description not getting rendered in the place where the customer search happens
+- remove the secret key stored in the README.md
+- normalizing the relational designs in the database to make sure the project can handle huge user load
+- apis for the project and integrating Vue.js for frontend
+- proper documentation for the user to run the code properly and contribute afterwards

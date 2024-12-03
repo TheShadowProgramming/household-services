@@ -5,7 +5,7 @@ import json;
 from A2Z_household_services import app, db, flask_bcrypt_instance, login_manager;
 from flask_login import current_user, login_user, logout_user, login_required; # type: ignore
 from A2Z_household_services.forms import Signup_Customer_Form, Signup_Professional_Form, Login_Form, New_Service_Form, Edit_Service_Form, DatabaseSearchForm, ProfessionalPortfolioForm, CustomerProposalForm, CustomerReviewForm;
-from A2Z_household_services.models import User, ServiceTypes, Service_requests_central, Service_requests_customer, Service_requests_professional, Professional_portfolio;
+from A2Z_household_services.models import User, ServiceTypes, Service_requests_central, Professional_portfolio;
 
 def non_blocked_required():
     

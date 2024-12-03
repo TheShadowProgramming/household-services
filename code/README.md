@@ -1,23 +1,23 @@
-> Important Note :- I'll start working on the project when I'll be done with working on my practice blog project having same tech stack, link of the project :- https://github.com/TheShadowProgramming/iitm-courses-practice/tree/main/programming-diploma/MAD1-project/MAD1_practice_proj_corey_schafer
+# How to run the project
 
-# household-services application introduction
+### install all the dependencies first in the root directory:-
 
-### frameworks used :- 
+1. pip install flask (to install the main flask application) 
+2. pip install flask-sqlalchemy (to install the orm communicating with sqlite database)
+3. pip install flask-wtf (to install the flask version of wt_forms package)
+4. pip install email-validator (to install the email validator required for the Email validtion in flask_wtforms package)
+5. pip install flask-login (to install the login which is getting used in the project for authenticated)
+6. pip install flask-bcrypt (to store the passwords in hashed form to keep our project safe during data breaches)
+7. pip install python-dotenv (to install the dotenv package getting used in the project)
 
-- Bootstrap CSS
-- flask (web development framework)
-- jinja2 template engine
-- SQLite as DB
+### Setup the dot-env file 
 
-### project description :- 
- 
-> admin will have the root access and won't require registration and can login directly
+- SECRET_KEY=60f6e5c057dcb1e4cb8b4e0f907cb3b3d76422f00d38e3fa99c33d62ecae4871
+- paste this secret key in the .env file that you would want to create in the folder named "A2Z_household_services" inside the current "code" folder
+- and then most probably you're good to go 
 
-> professional will sign up and pitch themselves that they can offer these specific services
+### Run the server locally while making sure the location of the terminal is the "code folder"
 
-> customers will can scroll for services and also request for some specific services which is not present in the database yet
-
-![image](https://github.com/user-attachments/assets/c6db123a-b06e-4cb9-ae2d-36ac1de0f71a)
-
-- the root folder must have a code folder and it must have a projectDescription.pdf 
-- we'll need a video too explananing the entire video about the working of the application
+- run this command for normal mode :- flask --app run.py run
+- run this command for debug mode :- flask --app run.py run --debug
+- in debug mode you can modify the code in certain lines of the folder from the browser itself 
