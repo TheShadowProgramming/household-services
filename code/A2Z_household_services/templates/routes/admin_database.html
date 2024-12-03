@@ -54,16 +54,18 @@
             <div class="row">
                 <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">DB Id</div>
                 <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Customer Name</div>
-                <div style="font-size: 1.25rem;" class="col-4 text-white lato-bold bg-primary">Email</div>
+                <div style="font-size: 1.25rem;" class="col-3 text-white lato-bold bg-primary">Email</div>
                 <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Pin Code</div>
+                <div style="font-size: 1.25rem;" class="col-1 text-white lato-bold bg-primary">Blocked</div>
                 <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Action</div>
             </div>
             {% for tuple in filtered_customers %}
                 <div style="border-bottom: 0.5px solid;" class="row border-secondary">
                     <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-2 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ tuple.id }}</div>
                     <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ tuple.name }}</div>
-                    <div class="col-4 d-flex align-items-center justify-content-center">{{ tuple.email }}</div>
+                    <div class="col-3 d-flex align-items-center justify-content-center">{{ tuple.email }}</div>
                     <div class="col-2 d-flex align-items-center justify-content-center">{{ tuple.pincode }}</div>
+                    <div class="col-1 d-flex align-items-center justify-content-center">{{ tuple.user_blocked }}</div>
                     <div class="col-2 d-flex align-items-center justify-content-center">
                         <span><a href="{{ url_for('block_user', userId=tuple.id, status='true') }}" class="text-black">Block</a></span>/<span><a href="{{ url_for('block_user', userId=tuple.id, status='false') }}" class="text-black">Unblock</a></span>
                     </div>
@@ -75,23 +77,25 @@
         <div class="container mb-5 lato-regular border border-5 border-primary text-center">
             <div class="row">
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">DB Id</div>
-                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Professional Name</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Professional Name</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Email</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Pin Code</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Service</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Expertise (in yrs)</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Description</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Blocked</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Action</div>
             </div>
             {% for tuple in filtered_professionals %}
                 <div style="border-bottom: 0.5px solid;" class="row border-secondary">
                     <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-1 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ tuple.id }}</div>
-                    <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ tuple.name }}</div>
+                    <div class="col-1 lato-black d-flex align-items-center justify-content-center">{{ tuple.name }}</div>
                     <div class="col-2 d-flex align-items-center justify-content-center">{{ tuple.email }}</div>
                     <div class="col-2 d-flex align-items-center justify-content-center">{{ tuple.pincode }}</div>
                     <div class="col-1 d-flex align-items-center justify-content-center">{{ tuple.service_offered }}</div>
                     <div class="col-1 d-flex align-items-center justify-content-center">{{ tuple.experience }}</div>
                     <div class="col-2 d-flex align-items-center justify-content-center"><a href="{{ url_for('static', filename='professional_docs/'+tuple.description) }}">{{ tuple.description }}</a></div>
+                    <div class="col-1 lato-black d-flex align-items-center justify-content-center">{{ tuple.user_blocked }}</div>
                     <div class="col-1 d-flex align-items-center justify-content-center">
                         <span><a style="font-size: 0.875rem;" href="{{ url_for('block_user', userId=tuple.id, status='true') }}" class="text-black">Block</a></span>/<span><a style="font-size: 0.875rem;" href="{{ url_for('block_user', userId=tuple.id, status='false') }}" class="text-black">Unblock</a></span>
                     </div>
@@ -104,16 +108,18 @@
             <div class="row">
                 <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">DB Id</div>
                 <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Customer Name</div>
-                <div style="font-size: 1.25rem;" class="col-4 text-white lato-bold bg-primary">Email</div>
+                <div style="font-size: 1.25rem;" class="col-3 text-white lato-bold bg-primary">Email</div>
                 <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Pin Code</div>
+                <div style="font-size: 1.25rem;" class="col-1 text-white lato-bold bg-primary">Blocked</div>
                 <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Action</div>
             </div>
             {% for tuple in customers %}
                 <div style="border-bottom: 0.5px solid;" class="row border-secondary">
                     <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-2 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ tuple.id }}</div>
                     <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ tuple.name }}</div>
-                    <div class="col-4 d-flex align-items-center justify-content-center">{{ tuple.email }}</div>
+                    <div class="col-3 d-flex align-items-center justify-content-center">{{ tuple.email }}</div>
                     <div class="col-2 d-flex align-items-center justify-content-center">{{ tuple.pincode }}</div>
+                    <div class="col-1 d-flex align-items-center justify-content-center">{{ tuple.user_blocked }}</div>
                     <div class="col-2 d-flex align-items-center justify-content-center">
                         <span><a href="{{ url_for('block_user', userId=tuple.id, status='true') }}" class="text-black">Block</a></span>/<span><a href="{{ url_for('block_user', userId=tuple.id, status='false') }}" class="text-black">Unblock</a></span>
                     </div>
@@ -125,23 +131,26 @@
         <div class="container mb-5 lato-regular border border-5 border-primary text-center">
             <div class="row">
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">DB Id</div>
-                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Professional Name</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Professional Name</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Email</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Pin Code</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Service</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Expertise (in yrs)</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Description</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Blocked</div>
                 <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Action</div>
             </div>
             {% for tuple in professionals %}
                 <div style="border-bottom: 0.5px solid;" class="row border-secondary">
                     <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-1 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ tuple.id }}</div>
-                    <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ tuple.name }}</div>
+                    <div class="col-1 lato-black d-flex align-items-center justify-content-center">{{ tuple.name }}</div>
                     <div class="col-2 d-flex align-items-center justify-content-center">{{ tuple.email }}</div>
                     <div class="col-2 d-flex align-items-center justify-content-center">{{ tuple.pincode }}</div>
                     <div class="col-1 d-flex align-items-center justify-content-center">{{ tuple.service_offered }}</div>
                     <div class="col-1 d-flex align-items-center justify-content-center">{{ tuple.experience }}</div>
                     <div class="col-2 d-flex align-items-center justify-content-center"><a href="{{ url_for('static', filename='professional_docs/'+tuple.description) }}">{{ tuple.description }}</a></div>
+                    <div class="col-1 lato-black d-flex align-items-center justify-content-center">{{ tuple.user_blocked
+                         }}</div>
                     <div class="col-1 d-flex align-items-center justify-content-center">
                         <span><a style="font-size: 0.875rem;" href="{{ url_for('block_user', userId=tuple.id, status='true') }}" class="text-black">Block</a></span>/<span><a style="font-size: 0.875rem;" href="{{ url_for('block_user', userId=tuple.id, status='false') }}" class="text-black">Unblock</a></span>
                     </div>
@@ -149,5 +158,33 @@
             {% endfor %}
         </div>
     {% endif %}
+
+    <h1 class="mt-5 text-center text-primary lato-black">Service Requests</h1>
+    <div class="container mb-5 lato-regular border border-5 border-primary text-center">
+            <div class="row">
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">DB Id</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Professional Id</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Professional Pin-Code</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Customer Id</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Customer Pin-Code</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Service-Price</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Service</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-1 text-white lato-bold bg-primary">Status (r/o/c/p)</div>
+                <div style="font-size: 1.25rem;" class="d-flex justify-content-center align-items-center col-2 text-white lato-bold bg-primary">Message or Review</div>
+            </div>
+            {% for service in all_services  %}
+                <div style="border-bottom: 0.5px solid;" class="row border-secondary">
+                    <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-1 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ service.service_id }}</div>
+                    <div class="col-1 d-flex align-items-center justify-content-center">{{ service.professional_id }}</div>
+                    <div class="col-2 d-flex align-items-center justify-content-center">{{ service.professional_pincode }}</div>
+                    <div class="col-1 d-flex align-items-center justify-content-center">{{ service.customer_id }}</div>
+                    <div class="col-2 d-flex align-items-center justify-content-center">{{ service.customer_pincode }}</div>
+                    <div class="col-1 d-flex align-items-center justify-content-center">{{ service.service_price }}</div>
+                    <div class="col-1 d-flex align-items-center justify-content-center">{{ service.service_category }}</div>
+                    <div class="col-1 d-flex align-items-center justify-content-center">{{ service.service_status }}</div>
+                    <div class="col-2 d-flex align-items-center justify-content-center">{{ service.service_review }}</div>
+                </div>            
+            {% endfor %}
+    </div>
     
 {% endblock content_main %}

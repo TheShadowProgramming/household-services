@@ -11,7 +11,6 @@
             <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Status</div>
             <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Action</div>
         </div>
-        {% if service_requests_open %}
             {% for service in service_requests_open %}
                 <div style="border-bottom: 0.5px solid;" class="row border-secondary">
                     <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-1 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ service.service_id }}</div>
@@ -36,7 +35,6 @@
                     </div>
                 </div>            
             {% endfor %}
-        {% endif %}
     </div>
 
     <h1 class="text-center text-primary lato-black">Services History</h1>
@@ -49,8 +47,8 @@
             <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Status</div>
             <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Action</div>
         </div>
-        {% if service_requests_closed %}
-            {% for service in service_requests_closed %}
+        {% if service_requests %}
+            {% for service in service_requests %}
                 <div style="border-bottom: 0.5px solid;" class="row border-secondary">
                     <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-1 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ service.service_id }}</div>
                     <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ service.professional_name }}</div>

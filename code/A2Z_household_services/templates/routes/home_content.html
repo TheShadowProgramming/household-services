@@ -11,7 +11,7 @@
         
         {% from './macros/home_professional.html' import render_home_professional %}
 
-        {{ render_home_professional(service_requests_pending, service_requests_open) }}
+        {{ render_home_professional(service_requests_pending, service_requests_open, service_requests_closed) }}
 
     {% elif current_user.category == "Customer" %}
         

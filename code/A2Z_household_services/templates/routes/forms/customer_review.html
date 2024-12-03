@@ -1,0 +1,54 @@
+{% extends './base_with_navbar.html' %}
+
+{% block content_main %}
+    <div>
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center mb-4">
+                <div class="col d-flex justify-content-center align-items-center">
+                    <img style="width: 12rem; height: 12rem;" src="{{ url_for('static', filename='assets/'+professional.service_offered+'.png') }}" alt="">
+                </div>
+            </div>
+            <form action="" method="POST" target="_self" autocomplete="off" class="row">
+                {{ form.hidden_tag() }}
+                <fieldset class="container">
+                    <div class="row text-center mb-2 d-flex justify-content-center align-items-center">
+                        <legend class="lato-bold">
+                            Post Review of {{ professional.name }}'s service 🚀
+                        </legend>
+                    </div>
+                    <div class="row mb-3 d-flex justify-content-center">
+    
+                        {{ form.rating.label(class="ms-auto form-label text-dark lato-regular text-center", style="font-size: 1.25rem;") }}
+                        {% if form.rating.errors %}
+                            {{ form.rating(class="form-control text-dark is-invalid lato-regular", style="width: 6rem !important;")}}
+                        {% else %}
+                            {{ form.rating(class="form-control text-dark border border-primary border-2 lato-regular", style="width: 36rem !important;") }}
+                        {% endif %}
+            
+                        {% for error in form.rating.errors %}
+                            <div class="invalid-feedback text-danger">{{ error }}</div>
+                        {% endfor %}
+            
+                    </div>
+                    <div class="row mb-3 d-flex justify-content-center">
+    
+                        {{ form.review_message.label(class="ms-auto form-label text-dark lato-regular text-center", style="font-size: 1.25rem;") }}
+                        {% if form.review_message.errors %}
+                            {{ form.review_message(class="form-control text-dark is-invalid lato-regular", style="width: 6rem !important;")}}
+                        {% else %}
+                            {{ form.review_message(class="form-control text-dark border border-primary border-2 lato-regular", style="width: 36rem !important;") }}
+                        {% endif %}
+            
+                        {% for error in form.review_message.errors %}
+                            <div class="invalid-feedback text-danger">{{ error }}</div>
+                        {% endfor %}
+            
+                    </div>
+                </fieldset>
+                <div class="mb-3 d-flex justify-content-center">
+                    {{ form.submitButton(class="landing-page-button btn") }}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content_main %}

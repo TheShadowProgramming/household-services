@@ -191,18 +191,18 @@
                               <a style="font-size: 1.25rem;" class="text-orange-hover nav-link lato-bold" href="{{ url_for('admin_database') }}">DataBase</a> 
                           </li>
                           <li class="nav-item">
-                              <a style="font-size: 1.25rem;" class="text-orange-hover nav-link lato-bold" href="{{ url_for('logout') }}">Logout</a>
+                              <a style="font-size: 1.25rem;" class="text-orange-hover nav-link lato-bold d-flex flex-column justify-content-center align-items-center" href="{{ url_for('logout') }}">Logout <div style="font-size: 0.875rem;" class="text-orange-hover lato-bold"> current-email :- {{ current_user.email }}</div></a>
                           </li>
                         {% elif current_user.is_authenticated and current_user.category == "Professional" %}
                           <li class="nav-item">
-                            <a style="font-size: 1.25rem;" class="text-orange-hover nav-link lato-bold" href="{{ url_for('logout') }}">Logout</a>
+                            <a style="font-size: 1.25rem;" class="text-orange-hover nav-link lato-bold d-flex flex-column justify-content-center align-items-center" href="{{ url_for('logout') }}">Logout<div style="font-size: 0.875rem;" class="text-orange-hover lato-bold"> current-email :- {{ current_user.email }}</div></a>
                           </li>
                           <li class="nav-item"></li>
                             <a style="font-size: 1.25rem;" class="text-orange-hover nav-link lato-bold" href="{{ url_for('professional_portfolio') }}">Portfolio</a>
                           </li>
                         {% elif current_user.is_authenticated and current_user.category == "Customer" %}
                           <li class="nav-item">
-                            <a style="font-size: 1.25rem;" class="text-orange-hover nav-link lato-bold" href="{{ url_for('logout') }}">Logout</a>
+                            <a style="font-size: 1.25rem;" class="text-orange-hover nav-link lato-bold d-flex flex-column justify-content-center align-items-center" href="{{ url_for('logout') }}">Logout<div style="font-size: 0.875rem;" class="text-orange-hover lato-bold"> current-email :- {{ current_user.email }}</div></a>
                           </li>
                           <li class="nav-item">
                             <a style="font-size: 1.25rem;" class="text-orange-hover nav-link lato-bold" href="{{ url_for('customer_database') }}">Database</a>

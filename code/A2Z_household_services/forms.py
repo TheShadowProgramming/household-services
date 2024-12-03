@@ -144,3 +144,19 @@ class CustomerProposalForm(FlaskForm):
     proposal_message = TextAreaField('Enter The Proposal To Make Professional Accepts Your Request', validators=[DataRequired()]);
 
     submitButton = SubmitField('Send Service Request');
+
+class CustomerReviewForm(FlaskForm):
+
+    options = [
+        ('1', '1 Star'),
+        ('2', '2 Star'),
+        ('3', '3 Star'),
+        ('4', '4 Star'),
+        ('5', '5 Star')
+    ]
+
+    rating = SelectField('Enter Rating Of The Service Between 1 To 5',choices=options , validators=[DataRequired()]);
+
+    review_message = TextAreaField('Enter The Review Message Here in This Box', validators=[DataRequired()]);
+
+    submitButton = SubmitField('Post Review');
