@@ -1,0 +1,64 @@
+{% macro render_home_unregistered() %}
+    <div style="height: 125vh;" class="container">
+        <div class="row h-100">
+            <div class="col h-100"> 
+                <div class="d-flex flex-column justify-content-center pt-5">
+                    <h1 class="pt-5 text-primary lato-black-italic">
+                        A2Z 
+                    </h1>
+                    <h1 class="text-primary lato-black">
+                        Household
+                    </h1>
+                    <h1 class="text-primary lato-black pb-4">
+                        Services
+                    </h1>
+                    <p class="lato-regular pb-4">
+                        Get Expert Help at Your Doorstep!
+                        Looking for reliable professionals? Discover top-rated household services and book with just a click.
+                        Sign up now and simplify your home care!
+                    </p>
+                    <a class="btn landing-page-button w-50 lato-regular" href="{{ url_for('signup_customer') }}"> Sign Up Now as a Customer</a>
+                </div>
+            </div>
+            <div style="background-image: url(../../static/assets/slider-img.png); background-repeat: no-repeat; background-position: center;" class="col h-100"></div>
+        </div>
+    </div>
+    <div style="height: 120vh; background-color: #ffffff;" class="container-fluid">
+        <div class="me-5 row h-100">
+            <div style="padding: 6.5rem !important;" class="h-100 col d-flex flex-column justify-content-center">
+                <h1 class="lato-bold">
+                    About The Culture in <i> A2Z </i>
+                </h1>
+                <p class="lato-regular">
+                    At <b> <i> A2Z </i> Household Services</b>, we pride ourselves on creating a professional, inclusive, and empowering work culture for service providers. Our platform is designed to prioritize their convenience and success, offering an ecosystem that seamlessly connects skilled professionals with customers who value quality and reliability.
+                </p>
+                <p class="lato-regular">
+                    Want to work with us as a professional ?
+                </p>
+                <a class="lato-regular btn landing-page-button w-50" href="#joinUs"> Sign Up Now as a Professional</a>
+            </div>
+            <div style="background-image: url(../../static/assets/about-img.jpg); background-repeat: no-repeat; background-position: center;" class="    col h-100">
+            </div>
+        </div>
+    </div>
+    <div style="height: 120vh" id="joinUs" class="container">
+        <div class="row h-100">
+            <div style="background-image: url(../../static/assets/professional-img.png); background-repeat: no-repeat; background-position: center;" class="col h-100">
+            </div>
+            <div class="col h-100"> 
+                <div class="d-flex flex-column justify-content-center pt-5">
+                    <h1 class="pt-5 text-primary lato-black">
+                        Join us and serve your household services
+                    </h1>
+                    <h1 class="text-primary lato-black pb-3">
+                        as a <b class="lato-black-italic">Professional</b> !
+                    </h1>
+                    <p class="lato-regular pb-4">
+                        Empower your skills, grow your income, and connect with customers who value your expertise. With flexible scheduling, secure payments, and a platform built for your success, <i> A2Z </i>  Household Services is your gateway to professional freedom and growth.
+                    </p>
+                    <a class="btn landing-page-button w-50 lato-regular" href="{{ url_for('signup_professional') }}"> Sign Up Now as a Professional</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

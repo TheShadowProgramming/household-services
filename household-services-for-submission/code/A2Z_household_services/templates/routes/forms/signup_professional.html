@@ -1,0 +1,143 @@
+{% extends './base_with_navbar.html' %}
+
+{% block content_main %}
+    <div class="container">
+        <form enctype="multipart/form-data" action="" method="POST" target="_self" autocomplete="off">
+            {{ form.hidden_tag() }}
+            <fieldset class="w-75">
+                <div class="mb-3">
+                    <Legend class="lato-bold">
+                        Sign Up to get Household services from top rated professionals! 🚀
+                    </Legend>
+                </div>
+                <div class="mb-3"> 
+                    
+                    {{ form.email.label(class="form-label text-dark lato-regular") }} 
+                    
+                    {% if form.email.errors %} 
+                    
+                        {{form.email(class="form-control text-dark form-control-lg is-invalid border border-primary border-2")}} 
+                    
+                    {% else %}
+
+                        {{ form.email(class="form-control text-dark
+                        form-control-lg border border-primary border-2") }} 
+                    
+                    {% endif %} 
+
+                    {% for error in form.email.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+
+                    {{ form.password.label(class="form-label text-dark lato-regular")}}
+
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg text-dark is-invalid")}}
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg text-dark border border-primary border-2") }}
+                    {% endif %}
+
+                    {% for error in form.password.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+
+                </div>
+                <div class="mb-3">
+
+                    {{ form.name.label(class="form-label text-dark lato-regular")}}
+
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg text-dark is-invalid") }}
+                    {% else %}
+                        {{ form.name(class="form-control form-control-lg text-dark border border-primary border-2") }}
+                    {% endif %}
+
+                    {% for error in form.name.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+
+                </div>
+                <div class="mb-3">
+
+                    {{ form.service_name.label(class="form-label text-dark lato-regular")}}
+
+                    {% if form.service_name.errors %}
+                        {{ form.service_name(class="form-control form-control-lg text-dark is-invalid") }}
+                    {% else %}
+                        {{ form.service_name(class="form-control form-control-lg text-dark border border-primary border-2") }}
+                    {% endif %}
+
+                    {% for error in form.service_name.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+
+                </div>
+                <div class="mb-3">
+
+                    {{ form.experience.label(class="form-label text-dark lato-regular")}}
+
+                    {% if form.experience.errors %}
+                        {{ form.experience(class="form-control form-control-lg text-dark is-invalid") }}
+                    {% else %}
+                        {{ form.experience(class="form-control form-control-lg text-dark border border-primary border-2") }}
+                    {% endif %}
+
+                    {% for error in form.experience.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+
+                </div>
+                <div class="mb-3">
+
+                    {{ form.upload_files.label(class="form-label text-dark lato-regular")}}
+
+                    {% if form.upload_files.errors %}
+                        {{ form.upload_files(class="form-control form-control-lg text-dark is-invalid") }}
+                    {% else %}
+                        {{ form.upload_files(class="form-control form-control-lg text-dark border border-primary border-2") }}
+                    {% endif %}
+
+                    {% for error in form.upload_files.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+
+                </div>
+                <div class="mb-3">
+
+                    {{ form.address.label(class="form-label text-dark lato-regular")}}
+
+                    {% if form.address.errors %}
+                        {{ form.address(class="form-control form-control-lg text-dark is-invalid") }}
+                    {% else %}
+                        {{ form.address(class="form-control form-control-lg text-dark border border-primary border-2") }}
+                    {% endif %}
+
+                    {% for error in form.address.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+
+                </div>
+                <div class="mb-3">
+
+                    {{ form.pincode.label(class="form-label text-dark lato-regular")}}
+
+                    {% if form.pincode.errors %}
+                        {{ form.pincode(class="form-control form-control-lg text-dark is-invalid") }}
+                    {% else %}
+                        {{ form.pincode(class="form-control form-control-lg text-dark border border-primary border-2") }}
+                    {% endif %}
+
+                    {% for error in form.pincode.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+
+                </div>
+            </fieldset>
+            <div class="mb-3">
+                {{ form.submitButton(class="landing-page-button btn") }}
+            </div>
+        </form>
+    </div>
+{% endblock content_main %}

@@ -1,0 +1,68 @@
+{% extends './base_with_navbar.html' %}
+
+{% block content_main %}
+    <div class="container">
+        <form action="" method="POST" target="_self" autocomplete="off">
+            {{ form.hidden_tag() }}
+            <fieldset class="w-75">
+                <div class="mb-3">
+                    <Legend class="lato-bold">
+                        Edit {{ existing_service.name }} Service! 🚀
+                    </Legend>
+                </div>
+                <div class="mb-3"> 
+                    
+                    {{ form.service_name.label(class="form-label text-dark lato-regular") }} 
+                    
+                    {% if form.service_name.errors %} 
+                    
+                        {{ form.service_name(class="form-control text-dark form-control-lg is-invalid border border-primary border-2", placeholder="Enter Name of Service in '%_%' format") }} 
+                    
+                    {% else %}
+
+                        {{ form.service_name(class="form-control text-dark
+                        form-control-lg border border-primary border-2", placeholder="Enter Name of Service in '%_%' format") }} 
+                    
+                    {% endif %} 
+
+                    {% for error in form.service_name.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+
+                    {{ form.description.label(class="form-label text-dark lato-regular")}}
+
+                    {% if form.description.errors %}
+                        {{ form.description(class="form-control form-control-lg text-dark is-invalid")}}
+                    {% else %}
+                        {{ form.description(class="form-control form-control-lg text-dark border border-primary border-2") }}
+                    {% endif %}
+
+                    {% for error in form.description.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+
+                </div>
+                <div class="mb-3">
+
+                    {{ form.base_price.label(class="form-label text-dark lato-regular")}}
+
+                    {% if form.base_price.errors %}
+                        {{ form.base_price(class="form-control form-control-lg text-dark is-invalid")}}
+                    {% else %}
+                        {{ form.base_price(class="form-control form-control-lg text-dark border border-primary border-2") }}
+                    {% endif %}
+
+                    {% for error in form.base_price.errors %}
+                        <div class="invalid-feedback text-danger">{{ error }}</div>
+                    {% endfor %}
+
+                </div>
+            </fieldset>
+            <div class="mb-3">
+                {{ form.submitButton(class="landing-page-button btn") }}
+            </div>
+        </form>
+    </div>
+{% endblock content_main %}

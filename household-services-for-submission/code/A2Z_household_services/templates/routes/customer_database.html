@@ -1,0 +1,77 @@
+{% extends './base_with_navbar.html' %}
+
+{% block content_main %}
+    <h1 class="text-center text-primary lato-black">Open Services</h1>
+    <div class="container lato-regular border border-5 border-primary text-center mb-5">
+        <div class="row">
+            <div style="font-size: 1.25rem;" class="col-1 text-white lato-bold bg-primary">DB Id</div>
+            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Professional Name</div>
+            <div style="font-size: 1.25rem;" class="col-4 text-white lato-bold bg-primary">Proposal or Review</div>
+            <div style="font-size: 1.25rem;" class="col-1 text-white lato-bold bg-primary">Service Price</div>
+            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Status</div>
+            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Action</div>
+        </div>
+            {% for service in service_requests_open %}
+                <div style="border-bottom: 0.5px solid;" class="row border-secondary">
+                    <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-1 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ service.service_id }}</div>
+                    <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ service.professional_name }}</div>
+                    <div class="col-4 d-flex align-items-center justify-content-center">{{ service.service_review }}</div>
+                    <div class="col-1 d-flex align-items-center justify-content-center">{{ service.service_price }}</div>
+                    <div class="col-2 d-flex align-items-center justify-content-center">{{ service.service_status }}</div>
+                    <div class="col-2 d-flex align-items-center justify-content-center">
+                        {% if service.service_status == "Closed" %}
+                            <span class="text-black">Closed</span>
+                        {% elif service.service_status == "Open" %}
+                            <span><a href="{{ url_for('close_service', serviceId=service.service_id) }}" class="text-black">Close ?</a></span>
+                        {% elif service.service_status == "Pending" %}
+                            <span class="text-black">Pending</span>
+                            
+                        {% else %}
+
+                            <span class="text-black">Rejected</span>    
+
+                        {% endif %}
+                        
+                    </div>
+                </div>            
+            {% endfor %}
+    </div>
+
+    <h1 class="text-center text-primary lato-black">Services History</h1>
+    <div class="container lato-regular border border-5 border-primary text-center">
+        <div class="row">
+            <div style="font-size: 1.25rem;" class="col-1 text-white lato-bold bg-primary">DB Id</div>
+            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Professional Name</div>
+            <div style="font-size: 1.25rem;" class="col-4 text-white lato-bold bg-primary">Proposal or Review</div>
+            <div style="font-size: 1.25rem;" class="col-1 text-white lato-bold bg-primary">Service Price</div>
+            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Status</div>
+            <div style="font-size: 1.25rem;" class="col-2 text-white lato-bold bg-primary">Action</div>
+        </div>
+        {% if service_requests %}
+            {% for service in service_requests %}
+                <div style="border-bottom: 0.5px solid;" class="row border-secondary">
+                    <div style="background-color: hsla(0, 0%, 66%, 0.251);" class="col-1 text-black border-1 border-start border-end border-secondary d-flex align-items-center justify-content-center">{{ service.service_id }}</div>
+                    <div class="col-2 lato-black d-flex align-items-center justify-content-center">{{ service.professional_name }}</div>
+                    <div class="col-4 d-flex align-items-center justify-content-center">{{ service.service_review }}</div>
+                    <div class="col-1 d-flex align-items-center justify-content-center">{{ service.service_price }}</div>
+                    <div class="col-2 d-flex align-items-center justify-content-center">{{ service.service_status }}</div>
+                    <div class="col-2 d-flex align-items-center justify-content-center">
+                        {% if service.service_status == "Closed" %}
+                            <span class="text-black">Closed</span>
+                        {% elif service.service_status == "Open" %}
+                            <span><a href="{{ url_for('close_service', serviceId=service.id) }}" class="text-black">Close ?</a></span>
+                        {% elif service.service_status == "Pending" %}
+                            <span class="text-black">Pending</span>
+                            
+                        {% else %}
+
+                            <span class="text-black">Rejected</span>    
+
+                        {% endif %}
+                        
+                    </div>
+                </div>            
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock content_main %}

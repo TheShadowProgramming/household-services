@@ -1,0 +1,17 @@
+{% macro render_home_customer(service_types_table) %}
+    <div class="container">
+        <div style="font-size: 2rem;" class="row lato-bold d-flex justify-content-center text-center mb-5">
+            What service are you looking for Today ? 🚀
+        </div>
+        <div class="row mb-5 p-4 border border-5 border-primary rounded-5">
+            {% for service in service_types_table %}
+                <a href=" {{ url_for('customer_search', service_category=service.name) }} " class="col d-flex justify-content-center align-items-center hover-box border border-3 border-primary m-2 rounded-3 p-2">
+                    <img style="width: 8rem; height: 8rem;" src="{{ url_for('static', filename='assets/'+ service.name + '.png') }}" alt=""> 
+                    <div style="font-size: 1.5rem;" class="text-primary lato-black mt-2 text-center">
+                        {{ service.name }}
+                    </div>    
+                </a>
+            {% endfor %}
+        </div> 
+    </div>
+{% endmacro %}
