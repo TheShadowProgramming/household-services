@@ -4,4 +4,5 @@
 - portfolio issue, fileField for uploading an icon for the new service
 - apis for the project and integrating Vue.js for frontend
 - proper search functionality for the customers like professionals near the area only render ho
+- write else condition in the line 144 to make sure password errors are visible in the password page
 - proper documentation for the user to run the code properly and contribute afterwards
